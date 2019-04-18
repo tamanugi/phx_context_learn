@@ -21,6 +21,12 @@ defmodule PhxContextLearnWeb.Router do
     resources "/sessions", SessionController, only: [:new, :create, :delete], singleton: true
   end
 
+  scope "/cms", PhxContextLearnWeb.CMS, as: :cms do
+    pipe_through [:browser, :authenticate_user] 
+
+    resources "/pages", PageController
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", PhxContextLearnWeb do
   #   pipe_through :api
